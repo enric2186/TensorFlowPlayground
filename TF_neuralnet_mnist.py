@@ -7,11 +7,16 @@ def init_weights(shape):
 def init_neural_layer(weights,biases):
     return {'weights':init_weights(weights),'biases':init_weights(biases)}
 def neural_network_model(layer_weights,data):
-    for i in range(len(layer_weights)):
-        layer=init_neural_layer(layer_weights[i],[nodes])
-        li = tf.add(tf.matmul(data,layer['weights']), layer['biases'])
+    for i,lw in enumerate(layer_weights):
+        print('layer',i,lw)
+        layer=init_neural_layer(lw,[nodes])
+        if(i==0):
+            input=data
+        else:
+            input=li
+        li = tf.add(tf.matmul(input,layer['weights']), layer['biases'])
         li = tf.nn.relu(li)
-    layer_output =  init_neural_layer([nodes, n_classes],[classes])
+    layer_output =  init_neural_layer([nodes, n_classes],[n_classes])
     output = tf.matmul(li,layer_output['weights']) + layer_output['biases']         
     return output
 
@@ -19,7 +24,8 @@ def train_neural_network(layer_weights,x,hm_epochs):
     prediction = neural_network_model(layer_weights,x)
     cost = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y) )
     optimizer = tf.train.AdamOptimizer().minimize(cost)
-    with tf.Session() as sess:
+    
+    with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
         sess.run(tf.global_variables_initializer())
         for epoch in range(hm_epochs):
             epoch_loss = 0
