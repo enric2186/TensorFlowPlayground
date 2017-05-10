@@ -1,2 +1,2 @@
 # TensorFlowPlayground
-Convolutional Neural Network [./TF_CNN_mnist.py]
+Convolutional Neural Network [TF_CNN_mnist.py](/TF_CNN_mnist.py)
