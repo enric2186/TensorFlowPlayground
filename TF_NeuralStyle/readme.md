@@ -1,7 +1,7 @@
 Stanford's CS 20SI: Tensorflow for Deep Learning Research course
 ======
 
-Neural Style transfer custom implementation
+Neural Style transfer custom implementation including argument parser (see --help)
 
 References
 --------
